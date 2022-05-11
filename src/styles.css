@@ -1,82 +1,81 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    background-color: #2B7A78;
-    padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #2b7a78;
+  padding: 30px 30px;
 }
 
 input {
-    width: 285px;
-    height: 37px;
-    border-radius: 6px;
-    background-color: #DEF2F1;
+  width: 285px;
+  height: 37px;
+  border-radius: 6px;
+  background-color: #def2f1;
 }
 
 button {
-    width: 155px;
-    height: 31px;
-    background-color: #3AAFA9;
-    color: #FFFFFF;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: bold;
+  width: 155px;
+  height: 31px;
+  background-color: #3aafa9;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 .hero {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: #FAF9F6;
-    text-align: center;
-    align-items: center;
-    padding: 30px;
-    width: 350px;
-    height: 350px;
-    border-radius: 10px;
-    font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #faf9f6;
+  text-align: center;
+  align-items: center;
+  padding: 30px;
+  width: 350px;
+  height: 350px;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
-.instructions { 
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    max-width: 60%;
-    margin: 10 auto;
-    color: #FFFFFF;
+.instructions {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 60%;
+  margin: 10 auto;
+  color: #ffffff;
 }
 
-.letters{
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    text-align: center;
-
+.letters {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  text-align: center;
 }
 
 .letters--element {
-    width: 40px;
-    height: 40px;
-    font-size: 0.8em;
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  width: 40px;
+  height: 40px;
+  font-size: 0.8em;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .R {
-    background-color: #F5C1C1;
+  background-color: #f5c1c1;
 }
 
 .Y {
-    background-color: #F6C89D;
+  background-color: #f6c89d;
 }
 
 .G {
-    background-color: #A4DEDB;
+  background-color: #a4dedb;
 }
