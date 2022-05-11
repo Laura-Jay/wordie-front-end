@@ -1,4 +1,11 @@
 import { useState } from "react"
+import { markWordieGuess } from "./utils/markWordieGuess";
+import "./styles.css"
+
+interface MarkObject {
+    guess: string,
+    mark: {[key: number]: string}
+}
 
 export default function MainContent(): JSX.Element {
 
@@ -9,8 +16,10 @@ const [word, setWord] = useState<string>("");
 
 const [guess, setGuess] = useState<string>("");
 
+const [markedGuess, setMarkedGuess] = useState<MarkObject>({guess: "", mark :{0: "", 1: "", 2: "", 3: "", 4: ""}})
+
 function handleWordChange(event: React.ChangeEvent<HTMLInputElement>){
-    setWord(event.target.value)
+    setWord(event.target.value.toUpperCase())
 }
 
 function handleWordSubmit(){
@@ -18,12 +27,19 @@ function handleWordSubmit(){
 }
 
 function handleGuessChange(event: React.ChangeEvent<HTMLInputElement>){
-    setGuess(event.target.value)
+    setGuess(event.target.value.toUpperCase())
 }
 
 function handleGuessSubmit(){
-    setView("marking")
+    setMarkedGuess(markWordieGuess(guess, word));
+    if (markedGuess.mark === {0: 'G', 1: 'G', 2: 'G', 3: 'G', 4: 'G'}){
+        setView("win");
+    } else {
+    setView("marking");
+    console.log(view)
 }
+}
+
 
 //if word.length > 5 then alert, please enter a five letter word and set word to "" again
 
@@ -66,28 +82,28 @@ function handleGuessSubmit(){
         <div className="hero">
         <h1>Wordie</h1>
         <div className="letters">
-            <div className="letters--element">
+            <div className={"letters--element " + markedGuess.mark[0]}>
                 <h1>{guess[0]}</h1>
             </div>
-            <div className="letters--element">
+            <div className={"letters--element " + markedGuess.mark[1]}>
                 <h1>{guess[1]}</h1>
             </div>
-            <div className="letters--element">
+            <div className={"letters--element " + markedGuess.mark[2]}>
                 <h1>{guess[2]}</h1>
             </div>
-            <div className="letters--element">
+            <div className={"letters--element " + markedGuess.mark[3]}>
                 <h1>{guess[3]}</h1>
             </div>
-            <div className="letters--element">
+            <div className={"letters--element " + markedGuess.mark[4]}>
                 <h1>{guess[4]}</h1>
             </div>
         </div>
             <p>Enter another guess</p>
             <input 
             type="text"
-            
+            onChange={(e) => handleGuessChange(e)}
             />
-            <button>Submit</button>
+            <button onClick={handleGuessSubmit}>Submit</button>
         </div>
         <div className="instructions">
             <p>Instructions:</p>
