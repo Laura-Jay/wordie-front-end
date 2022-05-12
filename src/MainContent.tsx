@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { markWordieGuess } from "./utils/markWordieGuess";
+import MarkingTiles from "./MarkingTiles";
 import "./styles.css";
 
 interface MarkObject {
@@ -33,48 +34,52 @@ export default function MainContent(): JSX.Element {
   }
 
   function handleWordSubmit() {
-    setView("guess1");
-  }
-
-  function handleGuessChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setCurrentGuess(prev => (event.target.value.toUpperCase()));
-  }
-
-  function handleGuessSubmit() {
-    setMarkedGuess(markWordieGuess(currentGuess, word));
-    console.log(markedGuess)
-    if (currentGuess === word) {
-      setView("win");
+    if (word.length !== 5){
+      alert("Please enter a five letter word")
+      setWord("");
     } else {
-        setView("marking");
-      setPreviousGuess(currentGuess);
-      setCurrentGuess(prev => (""));
-      setPreviousMarkedGuess(prev => (markedGuess))
-      setMarkedGuess(prev => ({
-        guess: "",
-        mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-      }));
-      console.log(currentGuess);
-      console.log(previousGuess)
-      console.log(markedGuess)
-      console.log(previousMarkedGuess)
+    setView("guess1");
     }
   }
 
-  function handleRestart() {
-      setView("setup")
-      setCurrentGuess(prev => (""));
-      setPreviousGuess(prev => (""));
-      setWord(prev => (""));
-      setMarkedGuess(prev => ({
-        guess: "",
-        mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-      }));
-      setPreviousMarkedGuess(prev => ({
-        guess: "",
-        mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-      }));
+  function handleGuessChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setCurrentGuess((prev) => event.target.value.toUpperCase());
+  }
 
+  function handleGuessSubmit() {
+    if (currentGuess.length !== 5){
+      alert("Please enter a five letter word")
+      setCurrentGuess("");
+    } else {
+    setMarkedGuess(markWordieGuess(currentGuess, word));
+    setPreviousGuess(currentGuess);
+    if (currentGuess === word) {
+      setView("win");
+    } else {
+      setView("marking");
+      setCurrentGuess((prev) => "");
+      setPreviousMarkedGuess((prev) => markedGuess);
+      setMarkedGuess((prev) => ({
+        guess: "",
+        mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
+      }));
+    }
+  }
+  }
+
+  function handleRestart() {
+    setView("setup");
+    setCurrentGuess((prev) => "");
+    setPreviousGuess((prev) => "");
+    setWord((prev) => "");
+    setMarkedGuess((prev) => ({
+      guess: "",
+      mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
+    }));
+    setPreviousMarkedGuess((prev) => ({
+      guess: "",
+      mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
+    }));
   }
 
   //if word.length > 5 then alert, please enter a five letter word and set word to "" again
@@ -99,6 +104,7 @@ export default function MainContent(): JSX.Element {
           </div>
         </section>
       )}
+
       {view === "guess1" && (
         <section>
           <div className="hero">
@@ -113,29 +119,19 @@ export default function MainContent(): JSX.Element {
           </div>
         </section>
       )}
-      {(view === "marking" && !previousGuess) ? (
+
+      {view === "marking" && !previousGuess ? (
         <section>
           <div className="hero">
             <h1>Wordie</h1>
-            <div className="letters">
-              <div className={"letters--element " + markedGuess.mark[0]}>
-                <h1>{currentGuess[0]}</h1>
-              </div>
-              <div className={"letters--element " + markedGuess.mark[1]}>
-                <h1>{currentGuess[1]}</h1>
-              </div>
-              <div className={"letters--element " + markedGuess.mark[2]}>
-                <h1>{currentGuess[2]}</h1>
-              </div>
-              <div className={"letters--element " + markedGuess.mark[3]}>
-                <h1>{currentGuess[3]}</h1>
-              </div>
-              <div className={"letters--element " + markedGuess.mark[4]}>
-                <h1>{currentGuess[4]}</h1>
-              </div>
-            </div>
+            <MarkingTiles guess={previousGuess} word={word} />
             <p>Enter another guess</p>
-            <input type="text" name="currentGuess" value={currentGuess} onChange={(e) => handleGuessChange(e)} />
+            <input
+              type="text"
+              name="currentGuess"
+              value={currentGuess}
+              onChange={(e) => handleGuessChange(e)}
+            />
             <button onClick={handleGuessSubmit}>Submit</button>
           </div>
           <div className="instructions">
@@ -150,29 +146,19 @@ export default function MainContent(): JSX.Element {
             <p>Wrong letter, wrong position</p>
           </div>
         </section>
-      ) : (view === "marking" && previousGuess) ?(
+
+      ) : view === "marking" && previousGuess ? (
         <section>
           <div className="hero">
             <h1>Wordie</h1>
-            <div className="letters">
-              <div className={"letters--element " + previousMarkedGuess.mark[0]}>
-                <h1>{previousGuess[0]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[1]}>
-                <h1>{previousGuess[1]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[2]}>
-                <h1>{previousGuess[2]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[3]}>
-                <h1>{previousGuess[3]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[4]}>
-                <h1>{previousGuess[4]}</h1>
-              </div>
-            </div>
+            <MarkingTiles guess={previousGuess} word={word} />
             <p>Enter another guess</p>
-            <input type="text" name="currentGuess" value={currentGuess} onChange={(e) => handleGuessChange(e)} />
+            <input
+              type="text"
+              name="currentGuess"
+              value={currentGuess}
+              onChange={(e) => handleGuessChange(e)}
+            />
             <button onClick={handleGuessSubmit}>Submit</button>
           </div>
           <div className="instructions">
@@ -187,29 +173,15 @@ export default function MainContent(): JSX.Element {
             <p>Wrong letter, wrong position</p>
           </div>
         </section>
-      ) : (<>
-      </>)}
+      ) : (
+        <></>
+      )}
+
       {view === "win" && (
         <section>
           <div className="hero">
             <h1>Wordie</h1>
-            <div className="letters">
-              <div className={"letters--element " + previousMarkedGuess.mark[0]}>
-                <h1>{currentGuess[0]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[1]}>
-                <h1>{currentGuess[1]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[2]}>
-                <h1>{currentGuess[2]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[3]}>
-                <h1>{currentGuess[3]}</h1>
-              </div>
-              <div className={"letters--element " + previousMarkedGuess.mark[4]}>
-                <h1>{currentGuess[4]}</h1>
-              </div>
-            </div>
+            <MarkingTiles guess={previousGuess} word={word} />
             <p>Congratulations!</p>
             <button onClick={handleRestart}>Play Again</button>
           </div>

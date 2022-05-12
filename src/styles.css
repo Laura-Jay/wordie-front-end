@@ -60,12 +60,12 @@ button {
 }
 
 .letters--element {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  max-height: 40px;
   font-size: 0.8em;
   text-align: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
+  border-radius: 5px;
 }
 
 .R {
