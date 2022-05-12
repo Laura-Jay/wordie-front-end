@@ -61,7 +61,12 @@ export default function MainContent(): JSX.Element {
           <div className="hero">
             <h1>Wordie</h1>
             <p>Enter a five letter word</p>
-            <input type="text" onChange={(e) => handleWordChange(e)} />
+            <input
+              type="text"
+              name="word"
+              value={word}
+              onChange={(e) => handleWordChange(e)}
+            />
             <button onClick={handleWordSubmit}>Submit</button>
           </div>
           <div className="instructions">
@@ -80,7 +85,12 @@ export default function MainContent(): JSX.Element {
           <div className="hero">
             <h1>Wordie</h1>
             <p>Enter a five letter guess</p>
-            <input type="text" onChange={(e) => handleGuessChange(e)} />
+            <input
+              type="text"
+              name="currentGuess"
+              value={currentGuess}
+              onChange={(e) => handleGuessChange(e)}
+            />
             <button onClick={handleGuessSubmit}>Submit</button>
           </div>
           <div className="instructions">
