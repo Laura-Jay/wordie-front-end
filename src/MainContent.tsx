@@ -1,12 +1,6 @@
 import { useState } from "react";
-import { markWordieGuess } from "./utils/markWordieGuess";
 import MarkingTiles from "./MarkingTiles";
 import "./styles.css";
-
-interface MarkObject {
-  guess: string;
-  mark: { [key: number]: string };
-}
 
 export default function MainContent(): JSX.Element {
   const [view, setView] = useState<"setup" | "guess1" | "marking" | "win">(
@@ -19,26 +13,16 @@ export default function MainContent(): JSX.Element {
 
   const [currentGuess, setCurrentGuess] = useState<string>("");
 
-  const [previousMarkedGuess, setPreviousMarkedGuess] = useState<MarkObject>({
-    guess: "",
-    mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-  });
-
-  const [markedGuess, setMarkedGuess] = useState<MarkObject>({
-    guess: "",
-    mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-  });
-
   function handleWordChange(event: React.ChangeEvent<HTMLInputElement>) {
     setWord(event.target.value.toUpperCase());
   }
 
   function handleWordSubmit() {
-    if (word.length !== 5){
-      alert("Please enter a five letter word")
+    if (word.length !== 5) {
+      alert("Please enter a five letter word");
       setWord("");
     } else {
-    setView("guess1");
+      setView("guess1");
     }
   }
 
@@ -47,24 +31,18 @@ export default function MainContent(): JSX.Element {
   }
 
   function handleGuessSubmit() {
-    if (currentGuess.length !== 5){
-      alert("Please enter a five letter word")
+    if (currentGuess.length !== 5) {
+      alert("Please enter a five letter word");
       setCurrentGuess("");
     } else {
-    setMarkedGuess(markWordieGuess(currentGuess, word));
-    setPreviousGuess(currentGuess);
-    if (currentGuess === word) {
-      setView("win");
-    } else {
-      setView("marking");
-      setCurrentGuess((prev) => "");
-      setPreviousMarkedGuess((prev) => markedGuess);
-      setMarkedGuess((prev) => ({
-        guess: "",
-        mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-      }));
+      setPreviousGuess(currentGuess);
+      if (currentGuess === word) {
+        setView("win");
+      } else {
+        setView("marking");
+        setCurrentGuess((prev) => "");
+      }
     }
-  }
   }
 
   function handleRestart() {
@@ -72,14 +50,6 @@ export default function MainContent(): JSX.Element {
     setCurrentGuess((prev) => "");
     setPreviousGuess((prev) => "");
     setWord((prev) => "");
-    setMarkedGuess((prev) => ({
-      guess: "",
-      mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-    }));
-    setPreviousMarkedGuess((prev) => ({
-      guess: "",
-      mark: { 0: "", 1: "", 2: "", 3: "", 4: "" },
-    }));
   }
 
   //if word.length > 5 then alert, please enter a five letter word and set word to "" again
@@ -146,7 +116,6 @@ export default function MainContent(): JSX.Element {
             <p>Wrong letter, wrong position</p>
           </div>
         </section>
-
       ) : view === "marking" && previousGuess ? (
         <section>
           <div className="hero">

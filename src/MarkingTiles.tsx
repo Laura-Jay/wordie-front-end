@@ -1,10 +1,5 @@
 import { markWordieGuess } from "./utils/markWordieGuess";
 
-interface MarkObject {
-  guess: string;
-  mark: { [key: number]: string };
-}
-
 interface MarkingTilesProps {
   guess: string;
   word: string;
